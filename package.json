@@ -1,6 +1,6 @@
 {
 	"name": "kirby-asset-manager",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"description": "Add CSS and JS per (block) snippet",
 	"scripts": {
 		"release": "release-it"

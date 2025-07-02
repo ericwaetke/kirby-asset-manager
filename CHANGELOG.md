@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.1](///compare/v1.1.0...v1.1.1) (2025-07-02)
+
+### Bug Fixes
+
+* add check to prevent duplication of assets 8fdd73a
+
 ## [1.1.0](///compare/v1.0.0...v1.1.0) (2025-05-15)
 
 ### Features
