@@ -40,13 +40,16 @@ class AssetManager
 
 		$uniqueId = md5($type . $filePath . json_encode($options));
 
-		// Add the asset to its respective collection
-		$this->{$type}[] = $type === 'css'
-			? css($filePath, $options)
-			: js($filePath, $options);
+		// Check if asset is already added to prevent duplicates
+		if (!isset($this->{$type}[$uniqueId])) {
+			// Add the asset to its respective collection with uniqueId as key
+			$this->{$type}[$uniqueId] = $type === 'css'
+				? \css($filePath, $options)
+				: \js($filePath, $options);
+		}
 
 		// Only generate preload tags for JS files
-		if ($type === 'js') {
+		if ($type === 'js' && !isset($this->preload[$uniqueId])) {
 			$this->preload[$uniqueId] = $this->generatePreloadTag($filePath, $options);
 		}
 	}
