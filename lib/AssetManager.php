@@ -42,10 +42,26 @@ class AssetManager
 
 		// Check if asset is already added to prevent duplicates
 		if (!isset($this->{$type}[$uniqueId])) {
-			// Add the asset to its respective collection with uniqueId as key
+			$tagOptions = $options;
+
+			if ($type === 'css') {
+				if (is_string($tagOptions)) {
+					$tagOptions = ['media' => $tagOptions];
+				}
+
+				$isAsync = !isset($tagOptions['async']) || $tagOptions['async'] !== false;
+
+				if ($isAsync) {
+					$tagOptions['media'] = 'print';
+					$tagOptions['onload'] = "this.media='all'";
+				}
+
+				unset($tagOptions['async']);
+			}
+
 			$this->{$type}[$uniqueId] = $type === 'css'
-				? \css($filePath, $options)
-				: \js($filePath, $options);
+				? \css($filePath, $tagOptions)
+				: \js($filePath, $tagOptions);
 		}
 
 		// Only generate preload tags for JS files
